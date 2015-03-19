@@ -1,3 +1,9 @@
+form {
+    text-align: center;
+   position: relative;
+    top: 250px;
+    
+}
 body {
      background: #F3F7FF;
 
@@ -30,4 +36,5 @@ input {
     margin-bottom: 20px;
     color: white;
     margin-top: 40px;
+    
 }
