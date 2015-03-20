@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here        
-        Campaign.hasMany(models.Creative, {foreignKey: 'campgainId'});
+        Campaign.hasMany(models.Creative, {foreignKey: 'campaignId'});
         Campaign.belongsTo(models.Advertiser, {foreignKey: 'advertiserId', onDelete: 'cascade', hooks: 'true'});
       }
     }

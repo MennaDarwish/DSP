@@ -20,7 +20,7 @@ module.exports = {
       width: {
         type: DataTypes.INTEGER
       },
-      imageURL: {
+      imageUrl: {
         type: DataTypes.STRING
       },
       redirectUrl: {

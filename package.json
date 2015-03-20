@@ -22,5 +22,8 @@
     "sequelize": "^2.0.4",
     "sequelize-cli": "^1.4.0",
     "underscore": "^1.8.2"
+  },
+  "devDependencies": {
+    "faker": "^2.1.2"
   }
 }
