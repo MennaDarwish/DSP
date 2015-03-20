@@ -1,7 +1,7 @@
 "use strict";
 module.exports = function(sequelize, DataTypes) {
   var Creative = sequelize.define("Creative", {
-    length: DataTypes.INTEGER,
+    height: DataTypes.INTEGER,
     width: DataTypes.INTEGER,
     tags: DataTypes.STRING,
     imageURL: DataTypes.STRING,

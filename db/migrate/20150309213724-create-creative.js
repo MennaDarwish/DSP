@@ -14,7 +14,7 @@ module.exports = {
         referencesKey: 'id',
         allowNull: false
       },
-      length: {
+      height: {
         type: DataTypes.INTEGER
       },
       width: {
