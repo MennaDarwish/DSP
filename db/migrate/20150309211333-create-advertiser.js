@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Buyers", {
+    migration.createTable("Advertisers", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,6 +10,12 @@ module.exports = {
       },
       firstName: {
         type: DataTypes.STRING
+      },
+      lastName: {
+        type: DataTypes.STRING
+      },
+      domain: {
+        type:DataTypes.STRING
       },
       email: {
         type: DataTypes.STRING
@@ -28,6 +34,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("Buyers").done(done);
+    migration.dropTable("Advertisers").done(done);
   }
 };

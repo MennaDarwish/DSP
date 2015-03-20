@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Creative.belongsTo(models.Buyer, {foreignKey:'buyerId'});
+        Creative.belongsTo(models.Advertiser, {foreignKey:'advertiserId'});
       }
     }
   });
