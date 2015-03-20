@@ -20,9 +20,6 @@ module.exports = {
       width: {
         type: DataTypes.INTEGER
       },
-      tags: {
-        type: DataTypes.STRING
-      },
       imageURL: {
         type: DataTypes.STRING
       },
