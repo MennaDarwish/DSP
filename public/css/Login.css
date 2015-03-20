@@ -1,0 +1,40 @@
+form {
+    text-align: center;
+   position: relative;
+    top: 250px;
+    
+}
+body {
+     background: #F3F7FF;
+
+}
+
+label {
+   
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 60px;
+    position: relative;
+    top: 200px;
+
+
+}
+input {
+    text-align: center;
+    padding: 10px;
+    padding-left: 80px;
+    padding-right: 80px;
+   /* border: 0;*/
+}
+
+.account-action .btn {
+    background: #2E5CB8;
+    text-align: center;
+    
+    margin-bottom: 20px;
+    color: white;
+    margin-top: 40px;
+    
+}
