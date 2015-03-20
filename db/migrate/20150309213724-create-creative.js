@@ -8,9 +8,9 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      buyerId: {
+      advertiserId: {
         type: DataTypes.INTEGER,
-        references: 'Buyers',
+        references: 'Advertisers',
         referencesKey: 'id',
         allowNull: false
       },
