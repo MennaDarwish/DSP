@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Ads", {
+    migration.createTable("Creatives", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,11 +14,11 @@ module.exports = {
         referencesKey: 'id',
         allowNull: false
       },
-      length: {
-        type: DataTypes.FLOAT
+      height: {
+        type: DataTypes.INTEGER
       },
       width: {
-        type: DataTypes.FLOAT
+        type: DataTypes.INTEGER
       },
       tags: {
         type: DataTypes.STRING
@@ -26,11 +26,11 @@ module.exports = {
       imageURL: {
         type: DataTypes.STRING
       },
-      imageRedirectUrl: {
+      redirectUrl: {
         type: DataTypes.STRING
       },
-      price: {
-        type: DataTypes.FLOAT
+      microUSD: {
+        type: DataTypes.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +43,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("Ads").done(done);
+    migration.dropTable("Creatives").done(done);
   }
 };

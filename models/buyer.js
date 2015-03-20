@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Buyer.hasMany(models.Ad, {through: models.BuyerAd, foreignKey: 'buyerId'});
+        Buyer.hasMany(models.Creative, {foreignKey: 'buyerId'});
       }
     }
   });
