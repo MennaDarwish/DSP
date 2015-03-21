@@ -8,6 +8,9 @@ var faker = require('faker');
 
 
 sequelize.sync({ logging: console.log, force: true}).then(function() {
+  
+  var heights = [90, 90, 60, 90, 250, 600, 600, 100, 150, 280]
+  var widths = [120, 120, 470, 730, 300, 160, 120, 300, 180, 340]
   // create an advertiser  
   Advertiser.create({
     firstName: 'Foo',
@@ -16,7 +19,6 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
     domain: 'www.squib.co',
     password: 'password'
   }).then(function(advertiser) {
-    console.log('hi');
     return Campaign.bulkCreate([{
       advertiserId: 1,
       title: 'First campaign',
@@ -34,15 +36,15 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
       tags: 'finance,business,mba,banking,accounting'
     }])
   }).then(function() {
-     for (i = 0; i < 2000; i++) {
+     for (i = 0; i < 20000; i++) {
       Creative.create({
         campaignId: (i%3)+1,
         body: faker.lorem.sentence(),
-        height: faker.random.number(500),
-        width: faker.random.number(800),
+        height: heights[i%10],
+        width: widths[i%10],
         imageUrl: faker.image.imageUrl(),
         redirectUrl: faker.internet.domainName(),
-        microUSD: faker.random.number(50000),
+        microUSD: faker.random.number(5) + 1,
       })
      }
   })
