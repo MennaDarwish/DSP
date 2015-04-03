@@ -48,15 +48,22 @@ head
       hr.featurette-divider
       #register.featurette
        fieldset.account-info
-        form
+        form(action='reg', method='post')
          label 
-           input(type='text', name='companyName', placeholder='Company Name', required='')
-          
-         label 
-           input(type='text', name='buyerEmail', placeholder='Email Address', required='')
+           input(type='text', name='firstName', placeholder='First Name', required='')
 
          label 
-           input(type='password', name='password', placeholder='password', required='')
+           input(type='text', name='lastName', placeholder='last Name', required='')
+
+         label 
+           input(type='text', name='email', placeholder='Email', required='')
+
+
+         label 
+           input(type='text', name='username', placeholder='domain', required='')
+
+         label 
+           input(type='password', name='password', placeholder='password', required='') 
           
       
         fieldset.account-action
