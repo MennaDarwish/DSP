@@ -5,6 +5,7 @@ var passport = require('passport');
 var passportLocal = require('passport-local');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var localReg = require('../lib/advertiserAuth.js');
 
  router.route('/Homepage')
   .get(function(req, res) {
@@ -23,7 +24,7 @@ var session = require('express-session');
   router.route('/reg')
   .post(passport.authenticate('local-signup', {
   successRedirect: '/Advertiser/profile',
-  failureRedirect: '/Advertiser/Login'
+  failureRedirect: '/Advertiser/Homepage'
   }));
 
   router.route('/profile')
