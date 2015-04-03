@@ -34,6 +34,17 @@ passport.use('local-signup', new passportLocal(
     
   ));
 
+// Passport session setup.
+passport.serializeUser(function(user, done) {
+  console.log("serializing " + user.firstName);
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  console.log("deserializing " + obj);
+  done(null, obj);
+});
+
  router.route('/Homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
