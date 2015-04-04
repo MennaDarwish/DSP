@@ -67,15 +67,7 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-router.route('/profile')
-  .get(function(req, res) {
-    res.render('buyerProfile', {
-      title : 'buyer Profile'
-    });
-   
-  });
-
- router.route('/Homepage')
+router.route('/Homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
       title : 'dspHomepage'
@@ -101,8 +93,31 @@ router.route('/profile')
   failureRedirect: '/Advertisers/Login'
   }));
 
+router.route('/profile')
+  .get(function(req, res) {
+    if (req.isAuthenticated()){
+    res.render('buyerProfile', {
+      title : 'buyer Profile'
+    });
+    
+   }
+  else {
+     res.redirect('/Advertisers/Homepage');
+  }
+    
+    
+  });
+
+ 
+
   
 
+  
+   router.route('/Logout')
+  .get(function(req, res) {
+    req.logout();
+    res.redirect('/Advertisers/Homepage');
+  });
   
 
   module.exports = router;
