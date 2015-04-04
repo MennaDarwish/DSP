@@ -3,15 +3,15 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var localReg = require('../lib/advertiserAuth.js');
+var advertiserAuth = require('../lib/advertiserAuth.js');
 
 
 
-
+// Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal(
   {passReqToCallback : true}, //allows us to pass back the request to the callback
  function(req, username, password, done) {
-    localReg.localReg(req.body.firstName,req.body.lastName,req.body.email,username, password)
+    advertiserAuth.localReg(req.body.firstName,req.body.lastName,req.body.email,username, password)
     
     .then(function (user) {
       if (user) {
@@ -32,6 +32,30 @@ passport.use('local-signup', new passportLocal(
     
   ));
 
+// Use the LocalStrategy within Passport to login advertisers.
+passport.use('local-signin', new passportLocal(
+  {passReqToCallback : true}, //allows us to pass back the request to the callback
+  function(req, username, password, done) {
+    advertiserAuth.localsignin(username, password)
+    .then(function (user) {
+      if (user) {
+        console.log("LOGGED IN AS: " + user.firstName);
+        req.session.success = 'You are successfully logged in ' + user.firstName + '!';
+        done(null, user);
+      }
+      if (!user) {
+        console.log("COULD NOT LOG IN");
+        req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
+        done(null, user);
+      }
+    })
+    .fail(function (err){
+      console.log(err.body);
+    });
+  }
+));
+
+
 // Passport session setup.
 passport.serializeUser(function(user, done) {
   console.log("serializing " + user.firstName);
@@ -42,6 +66,14 @@ passport.deserializeUser(function(obj, done) {
   console.log("deserializing " + obj);
   done(null, obj);
 });
+
+router.route('/profile')
+  .get(function(req, res) {
+    res.render('buyerProfile', {
+      title : 'buyer Profile'
+    });
+   
+  });
 
  router.route('/Homepage')
   .get(function(req, res) {
@@ -65,18 +97,12 @@ passport.deserializeUser(function(obj, done) {
 
   router.route('/Login')
   .post(passport.authenticate('local-signin', {
-  successRedirect: '/Advertiser/profile',
-  failureRedirect: '/Advertiser/Login'
+  successRedirect: '/Advertisers/profile',
+  failureRedirect: '/Advertisers/Login'
   }));
 
   
 
-  router.route('/profile')
-  .get(function(req, res) {
-    res.render('buyerProfile', {
-      title : 'buyer Profile'
-    });
-   
-  });
+  
 
   module.exports = router;
