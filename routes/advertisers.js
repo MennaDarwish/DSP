@@ -3,8 +3,6 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var passport = require('passport');
 var passportLocal = require('passport-local');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
 var localReg = require('../lib/advertiserAuth.js');
 
 
@@ -52,6 +50,12 @@ passport.deserializeUser(function(obj, done) {
     })
   });
 
+  router.route('/reg')
+  .post(passport.authenticate('local-signup', {
+  successRedirect: '/Advertisers/profile',
+  failureRedirect: '/Advertisers/Homepage'
+  }));
+
   router.route('/Login')
   .get(function(req, res) {
     res.render('Login', {
@@ -59,11 +63,13 @@ passport.deserializeUser(function(obj, done) {
     })
   });
 
-  router.route('/reg')
-  .post(passport.authenticate('local-signup', {
-  successRedirect: '/Advertisers/profile',
-  failureRedirect: '/Advertisers/Homepage'
+  router.route('/Login')
+  .post(passport.authenticate('local-signin', {
+  successRedirect: '/Advertiser/profile',
+  failureRedirect: '/Advertiser/Login'
   }));
+
+  
 
   router.route('/profile')
   .get(function(req, res) {
