@@ -67,7 +67,7 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-router.route('/Homepage')
+router.route('/homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
       title : 'dspHomepage'
@@ -76,21 +76,21 @@ router.route('/Homepage')
 
   router.route('/reg')
   .post(passport.authenticate('local-signup', {
-  successRedirect: '/Advertisers/profile',
-  failureRedirect: '/Advertisers/Homepage'
+  successRedirect: '/advertisers/profile',
+  failureRedirect: '/advertisers/Homepage'
   }));
 
-  router.route('/Login')
+  router.route('/login')
   .get(function(req, res) {
     res.render('Login', {
       title : 'buyer Login'
     })
   });
 
-  router.route('/Login')
+  router.route('/login')
   .post(passport.authenticate('local-signin', {
-  successRedirect: '/Advertisers/profile',
-  failureRedirect: '/Advertisers/Login'
+  successRedirect: '/advertisers/profile',
+  failureRedirect: '/advertisers/login'
   }));
 
 router.route('/profile')
@@ -102,7 +102,7 @@ router.route('/profile')
     
    }
   else {
-     res.redirect('/Advertisers/Homepage');
+     res.redirect('/advertisers/homepage');
   }
     
     
@@ -113,10 +113,10 @@ router.route('/profile')
   
 
   
-   router.route('/Logout')
+   router.route('/logout')
   .get(function(req, res) {
     req.logout();
-    res.redirect('/Advertisers/Homepage');
+    res.redirect('/advertisers/homepage');
   });
   
 

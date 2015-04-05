@@ -25,7 +25,7 @@ var placementsRoutes = require('./routes/placements');
 app.use('/placements', placementsRoutes);
 
 var AvertisersRoute = require('./routes/advertisers');
-app.use('/Advertisers', AvertisersRoute);
+app.use('/advertisers', AvertisersRoute);
 
 
 app.listen(4000, function(){
