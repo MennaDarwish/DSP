@@ -11,7 +11,7 @@ var advertiserAuth = require('../lib/advertiserAuth.js');
 passport.use('local-signup', new passportLocal(
   {passReqToCallback : true}, //allows us to pass back the request to the callback
  function(req, username, password, done) {
-    advertiserAuth.localReg(req.body.firstName,req.body.lastName,req.body.email,username, password)
+    advertiserAuth.localReg(req.body.firstName,req.body.lastName,req.body.domain,username, password)
     
     .then(function (user) {
       if (user) {
@@ -76,8 +76,8 @@ router.route('/homepage')
 
   router.route('/reg')
   .post(passport.authenticate('local-signup', {
-  successRedirect: '/advertisers/profile',
-  failureRedirect: '/advertisers/Homepage'
+    successRedirect: '/advertisers/profile',
+    failureRedirect: '/advertisers/Homepage'
   }));
 
   router.route('/login')
@@ -89,8 +89,8 @@ router.route('/homepage')
 
   router.route('/login')
   .post(passport.authenticate('local-signin', {
-  successRedirect: '/advertisers/profile',
-  failureRedirect: '/advertisers/login'
+    successRedirect: '/advertisers/profile',
+    failureRedirect: '/advertisers/login'
   }));
 
 router.route('/profile')
@@ -98,15 +98,12 @@ router.route('/profile')
     if (req.isAuthenticated()){
     res.render('buyerProfile', {
       title : 'buyer Profile'
-    });
-    
-   }
+      });
+    }
   else {
-     res.redirect('/advertisers/homepage');
-  }
-    
-    
-  });
+    res.redirect('/advertisers/homepage');
+      }
+   });
 
  
 
