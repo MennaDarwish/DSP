@@ -28,9 +28,9 @@ passport.use('local-signup', new passportLocal(
     .fail(function (err){
       console.log(err.body);
     });
-   }
+  }
     
-  ));
+));
 
 // Use the LocalStrategy within Passport to login advertisers.
 passport.use('local-signin', new passportLocal(
@@ -57,17 +57,17 @@ passport.use('local-signin', new passportLocal(
 
 
 // Passport session setup.
-passport.serializeUser(function(user, done) {
-  console.log("serializing " + user.firstName);
-  done(null, user);
-});
+  passport.serializeUser(function(user, done) {
+    console.log("serializing " + user.firstName);
+    done(null, user);
+  });
 
-passport.deserializeUser(function(obj, done) {
-  console.log("deserializing " + obj);
-  done(null, obj);
-});
+  passport.deserializeUser(function(obj, done) {
+    console.log("deserializing " + obj);
+    done(null, obj);
+  });
 
-router.route('/homepage')
+  router.route('/homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
       title : 'dspHomepage'
@@ -93,24 +93,19 @@ router.route('/homepage')
     failureRedirect: '/advertisers/login'
   }));
 
-router.route('/profile')
+  router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()){
-    res.render('buyerProfile', {
-      title : 'buyer Profile'
+      res.render('buyerProfile', {
+        title : 'buyer Profile'
       });
     }
-  else {
+    else {
     res.redirect('/advertisers/homepage');
-      }
-   });
+    }
+  });
 
- 
-
-  
-
-  
-   router.route('/logout')
+  router.route('/logout')
   .get(function(req, res) {
     req.logout();
     res.redirect('/advertisers/homepage');
