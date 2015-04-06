@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
+      radius: {
+        type: DataTypes.INTEGER
+      },
       campaignId: {
         type: DataTypes.INTEGER,
         references: 'Campaigns',
