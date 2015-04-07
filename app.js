@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
-
-
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(cookieParser());
 app.use(session({
@@ -27,7 +25,6 @@ app.use('/placements', placementsRoutes);
 var AvertisersRoute = require('./routes/advertisers');
 app.use('/advertisers', AvertisersRoute);
 
-
 app.listen(4000, function(){
    console.log('Listening on port 4000');
- });
+});
