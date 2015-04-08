@@ -3,14 +3,14 @@ var sequelize = db.sequelize;
 var Creative = db.Creative;
 var Campaign = db.Campaign;
 var Advertiser = db.Advertiser;
-
+var GeoTarget = db.GeoTarget;
 var faker = require('faker');
 
 
 sequelize.sync({ logging: console.log, force: true}).then(function() {
   
-  var heights = [90, 90, 60, 90, 250, 600, 600, 100, 150, 280]
-  var widths = [120, 120, 470, 730, 300, 160, 120, 300, 180, 340]
+  var heights = [90, 90, 60, 90, 250, 600]
+  var widths = [120, 120, 470, 730, 300, 160]
   // create an advertiser  
   Advertiser.create({
     firstName: 'Foo',
@@ -19,33 +19,38 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
     domain: 'www.squib.co',
     password: 'password'
   }).then(function(advertiser) {
-    return Campaign.bulkCreate([{
-      advertiserId: 1,
-      title: 'First campaign',
-      budget: 1000,
-      tags: 'cars,bikes,motorcycles,automotive'
-    },{
-      title: 'Second campaign',
-      advertiserId: 1,
-      budget: 3000,
-      tags: 'football,tennis,basketball,sports'
-    }, {
-      title: 'third campaign',
-      budget: 5000,
-      advertiserId: 1,
-      tags: 'finance,business,mba,banking,accounting'
-    }])
-  }).then(function() {
-     for (i = 0; i < 20000; i++) {
-      Creative.create({
-        campaignId: (i%3)+1,
-        body: faker.lorem.sentence(),
-        height: heights[i%10],
-        width: widths[i%10],
-        imageUrl: faker.image.imageUrl(),
-        redirectUrl: faker.internet.domainName(),
-        microUSD: faker.random.number(5) + 1,
-      })
-     }
+    var tags = ['finance', 'tennis', 'cars', 'basketball', 'sports', 'business', 'automotive']
+    for(j = 0; j < 2000; j++) {
+      var campaignTags = []
+      tags.forEach(function(tag, index){
+        if(j % index == 0) {
+          campaignTags.push(tag)
+        }
+      });
+      Campaign.create({
+        title: faker.lorem.sentence(),
+        budget: faker.random.number(5000),
+        advertiserId: 1,
+        tags: campaignTags.join(', ')
+      }).then(function(campaign) {
+        var geoProperties = {}
+        if(campaign.dataValues.id % 3 == 0) geoProperties = {city: faker.address.city(), country: faker.address.country()}
+        if(campaign.dataValues.id % 3 == 1) geoProperties = {longitude: faker.address.longitude(), latitude: faker.address.latitude(), radius: 25}
+        geoProperties['campaignId'] = campaign.dataValues.id;
+        return GeoTarget.create(geoProperties)
+      }).then(function(geo) {
+        for (i = 0; i < 10; i++) {
+          Creative.create({
+            campaignId: geo.dataValues.campaignId,
+            body: faker.lorem.sentence(),
+            height: heights[i%6],
+            width: widths[i%6],
+            imageUrl: faker.image.imageUrl(),
+            redirectUrl: faker.internet.domainName(),
+            microUSD: faker.random.number(5) + 1,
+          })
+        }
+      });
+    }
   })
 });

@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here        
         Campaign.hasMany(models.Creative, {foreignKey: 'campaignId'});
         Campaign.belongsTo(models.Advertiser, {foreignKey: 'advertiserId', onDelete: 'cascade', hooks: 'true'});
+        Campaign.hasOne(models.GeoTarget, {foreignKey: 'campaignId'});
       }
     }
   });

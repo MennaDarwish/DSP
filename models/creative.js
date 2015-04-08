@@ -1,4 +1,5 @@
 "use strict";
+var _ = require('underscore');
 var esDocumentManager = require('../lib/elasticsearch/document_manager');
 /**
  * @return {Promise Object} resolved to get indexed_hash;
@@ -7,10 +8,16 @@ var esDocumentManager = require('../lib/elasticsearch/document_manager');
 var asIndexed = function() {
   var _this = this;
   var campaign;
+  var geoTarget;
   return _this.getCampaign().then(function(camp) {
     campaign = camp;
-    return campaign.getAdvertiser();       
-  }).then(function(advertiser){
+    return campaign.getGeoTarget();       
+  })
+  .then(function(geo) {
+    geoTarget = geo;
+    return campaign.getAdvertiser();
+  })
+  .then(function(advertiser){
      var indexedHash = {
         id: _this.dataValues.id,
         tags: campaign.dataValues.tags.split(','),
@@ -22,8 +29,9 @@ var asIndexed = function() {
         imageUrl: _this.dataValues.imageUrl,
         body: _this.dataValues.body,
         width: _this.dataValues.width,
-        height: _this.dataValues.height
+        height: _this.dataValues.height,
       }
+    _.extend(indexedHash, geoTarget.asIndexedHash());
     return indexedHash;
   });
 }
