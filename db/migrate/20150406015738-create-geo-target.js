@@ -17,7 +17,7 @@ module.exports = {
         referencesKey: 'id',
         allowNull: false
       },
-      countryCode: {
+      country: {
         type: DataTypes.STRING
       },
       latitude: {
