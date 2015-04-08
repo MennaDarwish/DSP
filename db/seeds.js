@@ -9,8 +9,8 @@ var faker = require('faker');
 
 sequelize.sync({ logging: console.log, force: true}).then(function() {
   
-  var heights = [90, 90, 60, 90, 250, 600, 600, 100, 150, 280]
-  var widths = [120, 120, 470, 730, 300, 160, 120, 300, 180, 340]
+  var heights = [90, 90, 60, 90, 250, 600]
+  var widths = [120, 120, 470, 730, 300, 160]
   // create an advertiser  
   Advertiser.create({
     firstName: 'Foo',
@@ -20,7 +20,7 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
     password: 'password'
   }).then(function(advertiser) {
     var tags = ['finance', 'tennis', 'cars', 'basketball', 'sports', 'business', 'automotive']
-    for(j = 0; j < 100; j++) {
+    for(j = 0; j < 2000; j++) {
       var campaignTags = []
       tags.forEach(function(tag, index){
         if(j % index == 0) {
@@ -31,20 +31,20 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
         title: faker.lorem.sentence(),
         budget: faker.random.number(5000),
         advertiserId: 1,
-        tags: campaignTags.join('')
+        tags: campaignTags.join(', ')
       }).then(function(campaign) {
         var geoProperties = {}
-        if(campaign.dataValues.id % 3 == 0) geoProperties = {city: faker.address.city(), countryCode: faker.address.country()}
-        if(campaign.dataValues.id % 3 == 1) geoProperties = {longitude: faker.address.longitude(), latitude: faker.address.latitude()}
+        if(campaign.dataValues.id % 3 == 0) geoProperties = {city: faker.address.city(), country: faker.address.country()}
+        if(campaign.dataValues.id % 3 == 1) geoProperties = {longitude: faker.address.longitude(), latitude: faker.address.latitude(), radius: 25}
         geoProperties['campaignId'] = campaign.dataValues.id;
         return GeoTarget.create(geoProperties)
       }).then(function(geo) {
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < 10; i++) {
           Creative.create({
             campaignId: geo.dataValues.campaignId,
             body: faker.lorem.sentence(),
-            height: heights[i%10],
-            width: widths[i%10],
+            height: heights[i%6],
+            width: widths[i%6],
             imageUrl: faker.image.imageUrl(),
             redirectUrl: faker.internet.domainName(),
             microUSD: faker.random.number(5) + 1,
