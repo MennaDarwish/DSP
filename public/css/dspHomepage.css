@@ -32,23 +32,21 @@ body {
     background: rgba(255,255,255,0.5);
 }
 
-.featurette-divider {
-    margin: 20px ;
+
+form {
+    margin-right: 0px;
+     border: 1px solid #c6c7cc;
+
+  /*  padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-right: 400px;
+    margin-left: 300px;*/
+background: #E6E6E6;
 }
-
-.featurette {
-    overflow: hidden;
-    
-}
-
-
-
-.featurette-heading {
-    font-size: 50px;
-}
-.account-info {
+.account-action {
     background: #101919;
-;
 }
 .account-info label {
    
@@ -68,18 +66,7 @@ body {
    /* border: 0;*/
 }
 
-form {
-    margin-right: 0px;
-     border: 1px solid #c6c7cc;
 
-  /*  padding-right: 30px;
-    padding-left: 30px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    margin-right: 400px;
-    margin-left: 300px;*/
-background: #E6E6E6;
-}
 .account-action .btn {
     background: #2E5CB8;
     text-align: center;
@@ -87,9 +74,23 @@ background: #E6E6E6;
     left: 500px;
     margin-bottom: 20px;
     color: white;
+    margin-top: 20px;
+}
+
+.featurette-divider {
+    margin: 20px ;
+}
+
+.featurette {
+    overflow: hidden;
+    
 }
 
 
+
+.featurette-heading {
+    font-size: 50px;
+}
 
 @media(max-width:1200px) {
     .headline h1 {
