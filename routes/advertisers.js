@@ -105,5 +105,4 @@ router.route('/logout')
     res.redirect('/advertisers/homepage');
   });
   
-
 module.exports = router;

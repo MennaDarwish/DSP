@@ -1,0 +1,22 @@
+{
+  "mappings": {
+    "creative": {
+      "properties": {
+        "tags": {"type": "string", "index_name": "tag"},
+          "advertiserId": {"type": "integer"},
+          "campaignId": {"type": "integer"},
+          "remainingBudget": {"type": "integer"},
+          "cpm": {"type": "integer"},
+          "redirectUrl": {"type": "string"},
+          "imageUrl": {"type": "string"},
+          "body": {"type": "string"},
+          "width": {"type": "integer"},
+          "height": {"type": "integer"},
+          "targetOrigin": {"type": "geo_point"},
+          "targetCountry": {"type": "string"},
+          "targetCity": {"type": "string"},
+          "targetRadius": {"type": "integer"}
+      }
+    }
+  }
+}

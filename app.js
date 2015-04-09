@@ -22,9 +22,13 @@ app.use(express.static(__dirname + '/public'));
 var placementsRoutes = require('./routes/placements');
 app.use('/placements', placementsRoutes);
 
+
+
 var AvertisersRoute = require('./routes/advertisers');
 app.use('/advertisers', AvertisersRoute);
 
 app.listen(4000, function(){
    console.log('Listening on port 4000');
 });
+
+module.exports = app;

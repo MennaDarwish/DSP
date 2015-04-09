@@ -4,7 +4,7 @@
   "description": "Domain Service Platform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha --recursive"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,9 @@
     "underscore": "^1.8.2"
   },
   "devDependencies": {
-    "faker": "^2.1.2"
+    "faker": "^2.1.2",
+    "mocha": "^2.2.4",
+    "should": "^5.2.0",
+    "supertest": "^0.15.0"
   }
 }
