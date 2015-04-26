@@ -4,8 +4,8 @@ var router = express.Router();
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var advertiserAuth = require('../lib/advertiserAuth.js');
-var campaign = require('../lib/uploadCampaign.js');
-
+var uploadCampaign = require('../lib/uploadCampaign.js');
+var viewCampaigns = require('../lib/viewCampaigns.js');
 
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal(
@@ -110,7 +110,7 @@ router.route('/logout')
 router.route('/campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-      campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+      uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
 
     }
     else {
@@ -121,9 +121,12 @@ router.route('/campaigns')
 router.route('/campaigns')
   .get(function(req, res) {
     if (req.isAuthenticated()){
-      res.render('campaign', {
+      viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+        res.render('campaign', {
+          campaign : result
+        })
       })
-    }
+    }  
     else {
       res.redirect('/advertisers/Homepage');
     }

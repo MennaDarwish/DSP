@@ -10,20 +10,27 @@
    <!--   Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- Custom CSS  -->
-    <link rel="stylesheet" href="/css/buyerProfile.css">
+    <link rel="stylesheet" href="/css/campaign.css">
    
     
   </head>
   <body>
-    <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+   <!--  <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="Logout" class="navbar-brand">Sign Out</a>
         </div>
       </div>
-    </nav>
+    </nav> -->
+
+    <div>
+    <% campaign.forEach(function (campaign){ %>
+    <p> Title: <%= campaign.title %></p>
+    <p> Budget: <%= campaign.budget %></p>
+    <p> tags: <%= campaign.tags %></p>
+    <% }) %>
+  </div>
  
-    
   </body>
 </html>
 
