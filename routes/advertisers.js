@@ -107,11 +107,22 @@ router.route('/logout')
     res.redirect('/advertisers/homepage');
   });
 
-router.route('/campaign')
+router.route('/campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()){
       campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
 
+    }
+    else {
+      res.redirect('/advertisers/Homepage');
+    }
+  });
+
+router.route('/campaigns')
+  .get(function(req, res) {
+    if (req.isAuthenticated()){
+      res.render('campaign', {
+      })
     }
     else {
       res.redirect('/advertisers/Homepage');
