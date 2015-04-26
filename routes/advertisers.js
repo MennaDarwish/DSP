@@ -104,5 +104,15 @@ router.route('/logout')
     req.logout();
     res.redirect('/advertisers/homepage');
   });
+
+router.route('/campaign')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+      
+    }
+    else {
+      res.redirect('/advertisers/Homepage');
+    }
+  });
   
 module.exports = router;

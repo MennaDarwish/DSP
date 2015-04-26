@@ -1,0 +1,74 @@
+<!DOCTYPE html(lang='en')>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content=""/>
+  <meta name="author" content=""/>
+  <title>DSP</title>
+  <!-- Bootstrap Core CSS-->
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <!-- Custom CSS-->
+  <link rel="stylesheet" href="/css/dspHomepage.css"/>
+  <!--
+  script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+   |
+   script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+  -->
+</head>
+<body>
+  <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span>                    <span class="icon-bar"></span>                    <span class="icon-bar"></span>                    <span class="icon-bar"></span></button> <a href="Login" class="navbar-brand">Log In  </a>
+      </div>
+      <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#local-reg">Register </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="header-image">
+    <div class="headline">
+      <div class="container">
+        <h1>DSP</h1>
+        <h2>Demand Side Platform  </h2>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <hr class="featurette-divider"/>
+    <div id="local-reg" class="featurette">
+      <fieldset class="account-info">
+        <form action="reg" method="post">
+          <label>
+            <input type="text" name="firstName" placeholder="First Name" required=""/>
+          </label>
+          <label>
+            <input type="text" name="lastName" placeholder="last Name" required=""/>
+          </label>
+          <label>
+            <input type="text" name="email" placeholder="Email" required=""/>
+          </label>
+          <label>
+            <input type="text" name="username" placeholder="domain" required=""/>
+          </label>
+          <label>
+            <input type="password" name="password" placeholder="password" required=""/>
+          </label>
+          <fieldset class="account-action">
+            <input type="submit" name="submit" value="Register" class="btn"/>
+          </fieldset>
+        </form>
+      </fieldset>
+    </div>
+    <hr class="featurette-divider"/>
+  </div>
+  <!-- /.container
+  // jQuery
+  script(src='js/jquery.js')
+  // Bootstrap Core JavaScript
+  script(src='js/bootstrap.min.js')
+  -->
+</body>
