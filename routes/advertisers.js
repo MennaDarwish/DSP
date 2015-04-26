@@ -4,6 +4,8 @@ var router = express.Router();
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var advertiserAuth = require('../lib/advertiserAuth.js');
+var campaign = require('../lib/uploadCampaign.js');
+
 
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal(
@@ -108,7 +110,8 @@ router.route('/logout')
 router.route('/campaign')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-      
+      campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+
     }
     else {
       res.redirect('/advertisers/Homepage');
