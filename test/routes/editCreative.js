@@ -12,6 +12,7 @@ var creative = {
 	width: 100,
 	height: 200
 };
+
 var advertiser = {
 	firstName: 'fooName',
 	lastName: 'fooLastName',
@@ -19,6 +20,7 @@ var advertiser = {
 	domain: 'FOOdomain',
 	password: 'FOOpassword'
 };
+
 var campaign = {
 	title: 'Footitle',
 	budget: 100,
