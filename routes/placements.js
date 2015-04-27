@@ -6,14 +6,17 @@ var bidder = require('../lib/bidder');
 router.route('/')
   .post(jsonParser, function(req, res) {
     var placement = req.body.placement;
+    var longitude = req.body.longitude;
+    var latitude = req.body.latitude;
     var publisherId = req.body.publisherId;
     var userId = req.body.userId;
     bidder(placement).then(function(winningAd) {
-      var price = winningAd.price;
-      var budget = winningAd.budget;
+      var ad = Creative.find(winningAd.id);
+      var price = ad.price;
+      var budget = ad.budget;
       var newBudget = budget - price;
      Impression.create({ creativeID: winningAd.id, publisherID: publisherId, userID: userId,
-      longitude: winningAd.longitude, latitude: winningAd.latitude, price: price
+      longitude: longitude, latitude: latitude, price: price
       })
       res.status(201).json(winningAd);
     }, function(err) {
