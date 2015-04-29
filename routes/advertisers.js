@@ -2,58 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var router = express.Router();
 var passport = require('passport');
-var passportLocal = require('passport-local');
-var advertiserAuth = require('../lib/advertiserAuth.js');
+var localStrategy = require('../lib/localStrategy.js');
 var uploadCampaign = require('../lib/uploadCampaign.js');
 var viewCampaigns = require('../lib/viewCampaigns.js');
 var creative = require('../lib/creative.js');
-
-
-// Use the LocalStrategy within Passport to Register/"signup" advertisers.
-passport.use('local-signup', new passportLocal(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
-  function(req, username, password, done) {
-    advertiserAuth.localReg(req.body.firstName,req.body.lastName,req.body.domain,username, password)
-      .then(function (user) {
-        if (user) {
-          console.log('LOGGED IN AS: ' + user.firstName);
-          req.session.success = 'You are successfully logged in ' + user.firstName + '!';
-          done(null, user);
-        }
-        if (!user) {
-          console.log('COULD NOT LOG IN');
-          req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
-          done(null, user);
-        }
-      })
-      .fail(function (err){
-          console.log(err.body);
-      });
-  }
-));
-
-// Use the LocalStrategy within Passport to login advertisers.
-passport.use('local-signin', new passportLocal(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
-  function(req, username, password, done) {
-    advertiserAuth.localsignin(username, password)
-      .then(function (user) {
-        if (user) {
-          console.log('LOGGED IN AS: ' + user.firstName);
-          req.session.success = 'You are successfully logged in ' + user.firstName + '!';
-          done(null, user);
-        }
-        if (!user) {
-          console.log('COULD NOT LOG IN');
-          req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
-          done(null, user);
-        }
-      })
-      .fail(function (err){
-        console.log(err.body);
-      });
-  }
-));
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -75,7 +27,7 @@ router.route('/homepage')
 
 router.route('/reg')
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/advertisers/profile',
+    successRedirect: '/advertisers/login',
     failureRedirect: '/advertisers/Homepage'
   }));
 
@@ -113,6 +65,7 @@ router.route('/campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()){
       uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+      console.log(req.user.id);
       res.redirect('campaigns')
 
     }
