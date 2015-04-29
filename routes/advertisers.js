@@ -6,6 +6,8 @@ var passportLocal = require('passport-local');
 var advertiserAuth = require('../lib/advertiserAuth.js');
 var uploadCampaign = require('../lib/uploadCampaign.js');
 var viewCampaigns = require('../lib/viewCampaigns.js');
+var creative = require('../lib/creative.js');
+
 
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal(
@@ -111,10 +113,11 @@ router.route('/campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()){
       uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+      res.redirect('campaigns')
 
     }
     else {
-      res.redirect('/advertisers/Homepage');
+      res.redirect('/advertisers/homepage');
     }
   });
 
@@ -128,7 +131,7 @@ router.route('/campaigns')
       })
     }  
     else {
-      res.redirect('/advertisers/Homepage');
+      res.redirect('/advertisers/homepage');
     }
   });
 
@@ -140,17 +143,19 @@ router.route('/formcreatives')
       })
     }  
     else {
-      res.redirect('/advertisers/Homepage');
+      res.redirect('/advertisers/homepage');
     }
   });
 
 router.route('/creatives')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-
+      creative.uploadCreative(req.body.height,req.body.width,req.body.imageUrl,
+      req.body.redirectUrl,req.body.microUSD,req.body.campaignId);
+      res.redirect('/advertisers/campaigns');
     }  
     else {
-      res.redirect('/advertisers/Homepage');
+      res.redirect('/advertisers/homepage');
     }
   });
   
