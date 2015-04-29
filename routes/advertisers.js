@@ -27,7 +27,7 @@ router.route('/homepage')
 
 router.route('/reg')
   .post(passport.authenticate('local-signup', {
-    successRedirect: '/advertisers/login',
+    successRedirect: '/advertisers/profile',
     failureRedirect: '/advertisers/Homepage'
   }));
 
