@@ -132,12 +132,22 @@ router.route('/campaigns')
     }
   });
 
-router.route('/creatives')
-  .get(function(req, res) {
+router.route('/formcreatives')
+  .post(function(req, res) {
     if (req.isAuthenticated()){
       res.render('creative', {
         campaignId : req.body.campaignId
       })
+    }  
+    else {
+      res.redirect('/advertisers/Homepage');
+    }
+  });
+
+router.route('/creatives')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+
     }  
     else {
       res.redirect('/advertisers/Homepage');
