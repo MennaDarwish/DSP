@@ -16,7 +16,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 var placementsRoutes = require('./routes/placements');

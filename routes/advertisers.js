@@ -66,7 +66,7 @@ router.route('/homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
       title : 'dspHomepage'
-    })
+    });
   });
 
 router.route('/reg')
@@ -79,7 +79,7 @@ router.route('/login')
   .get(function(req, res) {
     res.render('Login', {
       title : 'buyer Login'
-    })
+    });
   });
 
 router.route('/login')
