@@ -6,7 +6,7 @@ var passportLocal = require('passport-local');
 var advertiserAuth = require('../lib/advertiserAuth.js');
 var editCampaign = require('../lib/edit-campaign.js');
 var editCreative = require('../lib/edit-creative.js');
-
+var listImpressions = require('../lib/impressions-per-campaign.js');
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal({
     passReqToCallback: true
@@ -157,6 +157,22 @@ router.route('/creatives')
           });
           res.redirect('advertisers/creatives');
         }
+      });
+    } else {
+      res.redirect('advertisers/homepage');
+    }
+  });
+router.route('/campaign/impressions')
+  .get(function(req, res) {
+    if (req.isAuthenticated()) {
+      listImpressions(req, function(err, data) {
+        if (err) {
+          console.log("Error in listing impressions" + err);
+          return;
+        }
+        res.render('impression', {
+          impressions: data
+        });
       });
     } else {
       res.redirect('advertisers/homepage');
