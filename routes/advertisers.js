@@ -4,13 +4,16 @@ var router = express.Router();
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var advertiserAuth = require('../lib/advertiserAuth.js');
+var editCampaign = require('../lib/edit-campaign.js');
+var editCreative = require('../lib/edit-creative.js');
 
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
-passport.use('local-signup', new passportLocal(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
+passport.use('local-signup', new passportLocal({
+    passReqToCallback: true
+  }, //allows us to pass back the request to the callback
   function(req, username, password, done) {
-    advertiserAuth.localReg(req.body.firstName,req.body.lastName,req.body.domain,username, password)
-      .then(function (user) {
+    advertiserAuth.localReg(req.body.firstName, req.body.lastName, req.body.domain, username, password)
+      .then(function(user) {
         if (user) {
           console.log('LOGGED IN AS: ' + user.firstName);
           req.session.success = 'You are successfully logged in ' + user.firstName + '!';
@@ -22,18 +25,19 @@ passport.use('local-signup', new passportLocal(
           done(null, user);
         }
       })
-      .fail(function (err){
-          console.log(err.body);
+      .fail(function(err) {
+        console.log(err.body);
       });
   }
 ));
 
 // Use the LocalStrategy within Passport to login advertisers.
-passport.use('local-signin', new passportLocal(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
+passport.use('local-signin', new passportLocal({
+    passReqToCallback: true
+  }, //allows us to pass back the request to the callback
   function(req, username, password, done) {
     advertiserAuth.localsignin(username, password)
-      .then(function (user) {
+      .then(function(user) {
         if (user) {
           console.log('LOGGED IN AS: ' + user.firstName);
           req.session.success = 'You are successfully logged in ' + user.firstName + '!';
@@ -45,7 +49,7 @@ passport.use('local-signin', new passportLocal(
           done(null, user);
         }
       })
-      .fail(function (err){
+      .fail(function(err) {
         console.log(err.body);
       });
   }
@@ -65,7 +69,7 @@ passport.deserializeUser(function(obj, done) {
 router.route('/homepage')
   .get(function(req, res) {
     res.render('dspHomepage', {
-      title : 'dspHomepage'
+      title: 'dspHomepage'
     });
   });
 
@@ -78,7 +82,7 @@ router.route('/reg')
 router.route('/login')
   .get(function(req, res) {
     res.render('Login', {
-      title : 'buyer Login'
+      title: 'buyer Login'
     });
   });
 
@@ -92,11 +96,11 @@ router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
       res.render('buyerProfile', {
-        title : 'buyer Profile'
+        title: 'buyer Profile'
       });
     } else {
-        res.redirect('/advertisers/homepage');
-      }
+      res.redirect('/advertisers/homepage');
+    }
   });
 
 router.route('/logout')
@@ -104,5 +108,59 @@ router.route('/logout')
     req.logout();
     res.redirect('/advertisers/homepage');
   });
-  
+
+
+router.route('/campaigns')
+  .put(function(req, res) {
+    if (req.isAuthenticated()) {
+      editCampaign(req, function(err, data) {
+        if (err) {
+          if (err.http_code == 404)
+            res.sendStatus(404);
+          else
+            res.sendStatus(400).json({
+              status: "Error",
+              message: "Something went wrong!" + err
+            });
+          res.render('campaigns');
+          console.log("Something went wrong with editing");
+        } else {
+          res.sendStatus(200).json({
+            status: "updated"
+          });
+          res.redirect('advertisers/campaigns');
+        }
+      });
+    } else {
+      res.redirect('advertisers/homepage');
+    }
+  });
+
+
+router.route('/creatives')
+  .put(function(req, res) {
+    if (req.isAuthenticated()) {
+      editCreative(req, function(err, data) {
+        if (err) {
+          if (err.http_code == 404)
+            res.sendStatus(404);
+          else
+            res.sendStatus(400).json({
+              status: "Error",
+              message: "Something went wrong!" + err
+            });
+          res.render('creatives');
+          console.log("Something went wrong with editing");
+        } else {
+          res.sendStatus(200).json({
+            status: "updated"
+          });
+          res.redirect('advertisers/creatives');
+        }
+      });
+    } else {
+      res.redirect('advertisers/homepage');
+    }
+  });
+
 module.exports = router;
