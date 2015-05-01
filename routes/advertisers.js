@@ -11,6 +11,8 @@ var localStrategy = require('../lib/localStrategy.js');
 var uploadCampaign = require('../lib/uploadCampaign.js');
 var viewCampaigns = require('../lib/viewCampaigns.js');
 var creative = require('../lib/creative.js');
+var Campaign = require('../models/index.js').Campaign;
+var Creative = require('../models/index.js').Creative;
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal({
     passReqToCallback: true
@@ -94,8 +96,10 @@ router.route('/edit-campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
       console.log('redirecting' + req.body.campaignId);
-      res.render('editCampaign', {
-        campaignId: req.body.campaignId
+      return Campaign.find(req.body.campaignId).then(function(campaign) {
+        res.render('editCampaign', {
+          campaign: campaign
+        });
       });
     } else {
       res.redirect('advertisers/homepage');
@@ -125,8 +129,10 @@ router.route('/creatives/edit-creatives')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
       console.log('redirecting' + req.body.id);
-      res.render('editCreative', {
-        id: req.body.id
+      Creative.find(req.body.id).then(function(creative) {
+        res.render('editCreative', {
+          creative: creative
+        });
       });
     } else {
       res.redirect('advertisers/homepage');
@@ -145,23 +151,33 @@ router.route('/creatives/edit-creative')
           console.log("Something went wrong with editing");
         } else {
           console.log("data: " + data.campaignId);
-           res.redirect('/advertisers/creatives/' + data.campaignId);
+          res.redirect('/advertisers/creatives/' + data.campaignId);
         }
       });
     } else {
       res.redirect('advertisers/homepage');
     }
   });
-router.route('/campaign/impressions')
+router.route('/impressions')
   .get(function(req, res) {
+    var creative = [];
     if (req.isAuthenticated()) {
       listImpressions(req, function(err, data) {
         if (err) {
           console.log("Error in listing impressions" + err);
           return;
         }
-        res.render('impression', {
-          impressions: data
+        data.forEach(function(impression) {
+          Creative.find(impression.creativeId).then(function(myCreative) {
+            creative = creative.concat(myCreative);
+          });
+        });
+        Campaign.find(req.body.id).then(function(campaign) {
+          res.render('impressions', {
+            impressions: data,
+            campaign: campagin,
+            creative: creative
+          });
         });
       });
     } else {

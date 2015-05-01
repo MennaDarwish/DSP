@@ -26,9 +26,7 @@
     
     <% creative.forEach(function (creative){ %>
     <div class = "campaign" >
-      <p> Height: <%= creative.height %></p>
-      <p> width: <%= creative.width %></p>
-      <p> imageUrl: <%= creative.imageUrl %></p>
+      <img src=<%= creative.imageUrl%> height = <%= creative.height%> width = <%=creative.width%>>
       <p> redirectUrl: <%= creative.redirectUrl %></p>
       <p> microUSD: <%= creative.microUSD %></p>
       <div class = "upload">

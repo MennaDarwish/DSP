@@ -27,26 +27,26 @@
     </nav>
     <form method="post" action="edit-creative">
       <label> 
-        <input type="text" name="height" placeholder="Height" required="">
+        <input type="text" name="height" value = <%= creative.height%> required="">
       </label><br>
   
       <label>
-        <input type="text" name="width" placeholder="Width" required="">
+        <input type="text" name="width" value = <%= creative.width%> required="">
       </label><br>
     
       <label> 
-        <input type="text" name="imageUrl" placeholder="imageUrl" required="">
+        <input type="text" name="imageUrl" value = <%= creative.imageUrl%> required="">
       </label><br>
 
       <label> 
-        <input type="text" name="redirectUrl" placeholder="redirectUrl" required="">
+        <input type="text" name="redirectUrl" value = <%= creative.redirectUrl%> required="">
       </label><br>
 
       <label> 
-        <input type="text" name="microUSD" placeholder="microUSD" required="">
+        <input type="text" name="microUSD" value = <%= creative.microUSD%> required="">
       </label><br>
 
-      <input hidden name = "id" value = <%= id %> >
+      <input hidden name = "id" value = <%= creative.id %> >
       <fieldset class="account-action">
         <input type="submit" name="submit" value="Edit" class="btn">
       </fieldset>

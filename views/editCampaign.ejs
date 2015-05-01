@@ -27,17 +27,17 @@
     </nav>
     <form method="post" action="edit-campaign">
       <label> 
-        <input type="text" name="title" placeholder="Title" required="">
+        <input type="text" name="title" value = <%= campaign.title %> required="">
       </label><br>
   
       <label>
-        <input type="text" name="budget" placeholder="Budget" required="">
+        <input type="text" name="budget" value=<%= campaign.budget%> required="">
       </label><br>
     
       <label> 
-        <input type="text" name="tags" placeholder="Tags" required="">
+        <input type="text" name="tags" value=<%= campaign.tags%> required="">
       </label><br>
-        <input hidden name = "campaignId" value = <%= campaignId %> >
+        <input hidden name = "campaignId" value = <%= campaign.id %> >
       <fieldset class="account-action">
         <input type="submit" name="submit" value="Edit" class="btn">
       </fieldset>
