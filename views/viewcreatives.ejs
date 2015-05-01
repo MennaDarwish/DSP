@@ -31,6 +31,12 @@
       <p> imageUrl: <%= creative.imageUrl %></p>
       <p> redirectUrl: <%= creative.redirectUrl %></p>
       <p> microUSD: <%= creative.microUSD %></p>
+      <div class = "upload">
+     <form method = "post" action ="edit-creatives">
+      <input hidden name = "id" value = <%=creative.id %> >
+      <input type="submit" name="submit" value="Edit Creative" class="btn"/>
+    </form>
+    </div>
     </div>
     <% }) %>
 
