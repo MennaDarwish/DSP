@@ -29,10 +29,18 @@
     <p> Title: <%= campaign.title %></p>
     <p> Budget: <%= campaign.budget %></p>
     <p> tags: <%= campaign.tags %></p>
-    <form method = "post" action ="formcreatives">
+    <div class = "upload">
+    <form class = "upload" method = "post" action ="formcreatives">
       <input hidden name = "campaignId" value = <%=campaign.id %> >
       <input type="submit" name="submit" value="Upload Creative" class="btn"/>
     </form>
+  </div>
+    <div class = "view">
+    <form method = "post" action ="viewcreatives">
+      <input hidden name = "campaignId" value = <%=campaign.id %> >
+      <input type="submit" name="submit" value="View Creative" class="btn"/>
+    </form>
+  </div>
     </div>
     <% }) %>
 

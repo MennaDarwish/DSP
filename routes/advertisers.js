@@ -66,7 +66,7 @@ router.route('/campaigns')
     if (req.isAuthenticated()){
       uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
       console.log(req.user.id);
-      res.redirect('campaigns')
+      res.redirect('/advertisers/campaigns');
 
     }
     else {
@@ -106,6 +106,16 @@ router.route('/creatives')
       creative.uploadCreative(req.body.height,req.body.width,req.body.imageUrl,
       req.body.redirectUrl,req.body.microUSD,req.body.campaignId);
       res.redirect('/advertisers/campaigns');
+    }  
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+
+router.route('/viewcreatives')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+
     }  
     else {
       res.redirect('/advertisers/homepage');
