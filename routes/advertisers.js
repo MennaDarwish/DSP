@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var passport = require('passport');
 var localStrategy = require('../lib/localStrategy.js');
-var uploadCampaign = require('../lib/uploadCampaign.js');
-var viewCampaigns = require('../lib/viewCampaigns.js');
+var campaign = require('../lib/campaign.js');
+
 var creative = require('../lib/creative.js');
 
 // Passport session setup.
@@ -64,7 +64,7 @@ router.route('/logout')
 router.route('/campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-      uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+      campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
       console.log(req.user.id);
       res.redirect('/advertisers/profile');
 
@@ -77,7 +77,7 @@ router.route('/campaigns')
 router.route('/campaigns')
   .get(function(req, res) {
     if (req.isAuthenticated()){
-      viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+      campaign.viewCampaigns(req.user.id).then(function(result){
         res.render('campaign', {
           campaign : result
         })
