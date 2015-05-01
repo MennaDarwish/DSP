@@ -90,9 +90,18 @@ router.route('/logout')
     res.redirect('/advertisers/homepage');
   });
 
+router.route('/edit-campaigns')
+.post(urlEncoded,function(req,res){
+  if(req.isAuthenticated()){
+    console.log('redirecting' + req.body.campaignId);
+    res.render('editCampaign', {campaignId: req.body.campaignId});
+  } else {
+    res.redirect('advertisers/homepage');
+  }
+})
 
-router.route('/campaigns')
-  .put(function(req, res) {
+router.route('/edit-campaign')
+  .post(function(req, res) {
     if (req.isAuthenticated()) {
       editCampaign(req, function(err, data) {
         if (err) {
@@ -106,9 +115,6 @@ router.route('/campaigns')
           res.render('campaigns');
           console.log("Something went wrong with editing");
         } else {
-          res.sendStatus(200).json({
-            status: "updated"
-          });
           res.redirect('advertisers/campaigns');
         }
       });
