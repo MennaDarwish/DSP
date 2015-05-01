@@ -6,16 +6,16 @@ var db             = require('../../models/index');
 
 // Will create 10 campaigns creatives in test db which will be indexed in a testing elasticsearch index.
 var campaignsData = [
-  {budget: 3000, advertiserId: 1, tags: "finance,business,mba"       },
-  {budget: 2000, advertiserId: 1, tags: "sports,tennis"              },
-  {budget: 2500, advertiserId: 1, tags: "cars,automotive"            },
-  {budget: 5000, advertiserId: 1, tags: "motorcycles,automotive"     },
-  {budget: 3500, advertiserId: 1, tags: "football,basketball"        },
-  {budget: 5500, advertiserId: 1, tags: "business,stockmarket"       },
-  {budget: 5500, advertiserId: 1, tags: "suits,clothe,business"      },
-  {budget: 1000, advertiserId: 1, tags: "finance,stockmarket"        },
-  {budget: 1000, advertiserId: 1, tags: "football,sports,tennis"     },
-  {budget: 3000, advertiserId: 1, tags: "automotive,motorcycles,cars"}
+  {budget: 3000, advertiserId: 1, tags: "Finance Business Mba"       },
+  {budget: 2000, advertiserId: 1, tags: "Sports Tennis"              },
+  {budget: 2500, advertiserId: 1, tags: "Cars Automotive"            },
+  {budget: 5000, advertiserId: 1, tags: "Motorcycles Automotive"     },
+  {budget: 3500, advertiserId: 1, tags: "Football Basketball"        },
+  {budget: 5500, advertiserId: 1, tags: "Business Stockmarket"       },
+  {budget: 5500, advertiserId: 1, tags: "Suits Clothes Business"      },
+  {budget: 1000, advertiserId: 1, tags: "Finance Stockmarket"        },
+  {budget: 1000, advertiserId: 1, tags: "Football Sports Tennis"     },
+  {budget: 3000, advertiserId: 1, tags: "Automotive Motorcycles Cars"}
 ]
 var geoTargetData = [
   {city: 'Cairo', country: 'Egypt', campaignId:1}, // city targeting

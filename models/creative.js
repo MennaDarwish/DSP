@@ -20,7 +20,7 @@ var asIndexed = function() {
   .then(function(advertiser){
      var indexedHash = {
         id: _this.dataValues.id,
-        tags: campaign.dataValues.tags.split(','),
+        tags: campaign.dataValues.tags,
         advertiserId: advertiser.dataValues.id,
         campaignId: campaign.dataValues.id,
         remainingBudget: campaign.dataValues.budget,
@@ -73,14 +73,14 @@ module.exports = function(sequelize, DataTypes) {
         }, function(err) {
           callback(err);
         });
-      },
-      afterDestroy: function(record, options, callback) {
-        esDocumentManager.deleteDocument(record.id, {index:'creatives', type:'creative'}).then(function(response) {
-          callback(null, record);
-        }, function(err){
-          callback(err);
-        });
       }
+      //afterDestroy: function(record, options, callback) {
+        //esDocumentManager.deleteDocument(record.id, {index:'creatives', type:'creative'}).then(function(response) {
+         // callback(null, record);
+       // }, function(err){
+         // callback(err);
+       // });
+     // }
     }
   });
   return Creative;

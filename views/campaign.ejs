@@ -36,11 +36,20 @@
     </form>
   </div>
     <div class = "view">
-    <form method = "post" action ="viewcreatives">
-      <input hidden name = "campaignId" value = <%=campaign.id %> >
-      <input type="submit" name="submit" value="View Creatives" class="btn"/>
-    </form>
+      <button type="submit" name="submit" onclick = "location.href = 'creatives/' + <%= campaign.id%>"value="View Creatives" class="btn"/>View Creatives</button>
   </div>
+  <div class = "edit">
+     <form method = "post" action ="edit-campaigns">
+      <input hidden name = "campaignId" value = <%=campaign.id %> >
+      <input type="submit" name="submit" value="Edit Campaign" class="btn"/>
+    </form>
+    </div>
+    <div class = "impression">
+     <form method = "post" action ="impressions">
+      <input hidden name = "campaignId" value = <%=campaign.id %> >
+      <input type="submit" name="submit" value="View Impressions" class="btn"/>
+    </form>
+    </div>
     </div>
     <% }) %>
 
