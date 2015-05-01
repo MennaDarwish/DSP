@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> DSP</title>
+    <title><%= user.firstName %> <%= user.lastName %> | DSP</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -42,19 +42,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+                <a class="navbar-brand" href="#"> DSP</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.html">About</a>
+                        <a href="profile"><%= user.firstName %> <%= user.lastName %></a>
+                    </li>
+
+                    <li>
+                        <a href="campaignform">Upload Campaign</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Campaigns <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <% campaigns.forEach(function (campaign){ %>
+                          
+                             <form  method = "post" action ="viewcampaign">
+                                <input hidden name = "campaignId" value = <%=campaign.id %> >
+                                <input type="submit" name="submit" value=<%= campaign.title %> class="campaign"/>
+                            </form> 
+                       
+                            <% }) %>
+                        </ul>
                     </li>
                     <li>
-                        <a href="login">Login</a>
-                    </li>
-                    <li>
-                        <a href="registration">Register</a>
+                        <a href="homepage">Sign Out</a>
                     </li>
 
                 </ul>
@@ -64,20 +78,21 @@
         <!-- /.container -->
     </nav>
 
+    
     <!-- Page Content -->
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Contact
-                    <small>Subheading</small>
+                <h1 class="page-header">Upload Campaign
+                    <small></small>
                 </h1>
-                <ol class="breadcrumb">
-                    <li><a href="homepage">Home</a>
+<!--                 <ol class="breadcrumb">
+                    <li><a href="Homepage">Home</a>
                     </li>
                   
-                </ol>
+                </ol> -->
             </div>
         </div>
         <!-- /.row -->
@@ -89,12 +104,7 @@
                 <!-- Embedded Google Map -->
              <!--    <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe> -->
             </div>
-            <!-- Contact Details Column -->
-            <div class="col-md-4">
-
-
-
-            </div>
+     
         </div>
         <!-- /.row -->
 
@@ -102,25 +112,33 @@
         <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
         <div class="row">
             <div class="col-md-8">
-                <h3>Login</h3>
-                <form action="login" method="post" name="sentMessage" id="contactForm" novalidate>
+<!--                 <h3>Upload Campaign</h3> -->
+                <form action="uploadcampaign" method="post" name="sentMessage" id="contactForm" novalidate>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Email:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your email." name = "username">
+                            <label>Title:</label>
+                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your first name." name = "title">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Password:</label>
-                            <input type="password" class="form-control" id="name" required data-validation-required-message="Please enter your first password." name = "password">
+                            <label>Budget:</label>
+                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your last name." name = "budget">
                             <p class="help-block"></p>
                         </div>
                     </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Tags:</label>
+                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your domain." name = "tags">
+                            <p class="help-block"></p>
+                        </div>
+                    </div>
+
                     <div id="success"></div>
                     <!-- For success/fail messages -->
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
 
@@ -142,15 +160,17 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <script src="/js/jqBootstrapValidation.js"></script>
-    <script src="/js/contact_me.js"></script>
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
 
 </body>
 
