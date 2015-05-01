@@ -41,6 +41,12 @@
       <input type="submit" name="submit" value="View Creatives" class="btn"/>
     </form>
   </div>
+  <div class = "edit">
+     <form method = "post" action ="edit-campaigns">
+      <input hidden name = "campaignId" value = <%=campaign.id %> >
+      <input type="submit" name="submit" value="Edit Campaign" class="btn"/>
+    </form>
+    </div>
     </div>
     <% }) %>
 

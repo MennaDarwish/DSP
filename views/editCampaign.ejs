@@ -25,7 +25,7 @@
         </div>
       </div>
     </nav>
-    <form method="put" action="campaigns">
+    <form method="post" action="edit-campaign">
       <label> 
         <input type="text" name="title" placeholder="Title" required="">
       </label><br>
@@ -37,7 +37,7 @@
       <label> 
         <input type="text" name="tags" placeholder="Tags" required="">
       </label><br>
-  
+        <input hidden name = "campaignId" value = <%= campaignId %> >
       <fieldset class="account-action">
         <input type="submit" name="submit" value="Edit" class="btn">
       </fieldset>

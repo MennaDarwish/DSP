@@ -91,7 +91,7 @@ router.route('/logout')
   });
 
 router.route('/edit-campaigns')
-.post(urlEncoded,function(req,res){
+.post(function(req,res){
   if(req.isAuthenticated()){
     console.log('redirecting' + req.body.campaignId);
     res.render('editCampaign', {campaignId: req.body.campaignId});
@@ -108,14 +108,10 @@ router.route('/edit-campaign')
           if (err.http_code == 404)
             res.sendStatus(404);
           else
-            res.sendStatus(400).json({
-              status: "Error",
-              message: "Something went wrong!" + err
-            });
           res.render('campaigns');
           console.log("Something went wrong with editing");
         } else {
-          res.redirect('advertisers/campaigns');
+          res.redirect('campaigns');
         }
       });
     } else {
