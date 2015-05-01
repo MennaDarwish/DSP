@@ -4,6 +4,13 @@ var db		= require('../../models/index');
 var should	= require('should');
 var fqcap   = require('../../lib/FrequencyCapper');
 
+/**
+ * Author: Mohamed Marwan
+ * test the freqCap function
+ * The result of each test mush be the same as the
+   expect in each case.
+ */
+
 describe('Frequency Capper', function() {
 	describe('Getting the ads not to be displayed to a certain user', function(){
 		db.sequelize.sync({force: true}).then(function() {
