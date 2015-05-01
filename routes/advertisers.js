@@ -115,7 +115,11 @@ router.route('/creatives')
 router.route('/viewcreatives')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-
+      creative.viewCreatives(req.body.campaignId).then(function(result){
+        res.render('viewcreatives', {
+          creative : result
+        })
+      })
     }  
     else {
       res.redirect('/advertisers/homepage');
