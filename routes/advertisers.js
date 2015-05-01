@@ -7,6 +7,10 @@ var advertiserAuth = require('../lib/advertiserAuth.js');
 var editCampaign = require('../lib/edit-campaign.js');
 var editCreative = require('../lib/edit-creative.js');
 var listImpressions = require('../lib/impressions-per-campaign.js');
+var localStrategy = require('../lib/localStrategy.js');
+var uploadCampaign = require('../lib/uploadCampaign.js');
+var viewCampaigns = require('../lib/viewCampaigns.js');
+var creative = require('../lib/creative.js');
 // Use the LocalStrategy within Passport to Register/"signup" advertisers.
 passport.use('local-signup', new passportLocal({
     passReqToCallback: true
@@ -31,29 +35,6 @@ passport.use('local-signup', new passportLocal({
   }
 ));
 
-// Use the LocalStrategy within Passport to login advertisers.
-passport.use('local-signin', new passportLocal({
-    passReqToCallback: true
-  }, //allows us to pass back the request to the callback
-  function(req, username, password, done) {
-    advertiserAuth.localsignin(username, password)
-      .then(function(user) {
-        if (user) {
-          console.log('LOGGED IN AS: ' + user.firstName);
-          req.session.success = 'You are successfully logged in ' + user.firstName + '!';
-          done(null, user);
-        }
-        if (!user) {
-          console.log('COULD NOT LOG IN');
-          req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
-          done(null, user);
-        }
-      })
-      .fail(function(err) {
-        console.log(err.body);
-      });
-  }
-));
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -179,4 +160,65 @@ router.route('/campaign/impressions')
     }
   });
 
+router.route('/campaigns')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+      uploadCampaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
+      console.log(req.user.id);
+      res.redirect('/advertisers/campaigns');
+
+    }
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+
+router.route('/campaigns')
+  .get(function(req, res) {
+    if (req.isAuthenticated()){
+      viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+        res.render('campaign', {
+          campaign : result
+        })
+      })
+    }  
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+
+router.route('/formcreatives')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+      res.render('creative', {
+        campaignId : req.body.campaignId
+      })
+    }  
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+
+router.route('/creatives')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+      creative.uploadCreative(req.body.height,req.body.width,req.body.imageUrl,
+      req.body.redirectUrl,req.body.microUSD,req.body.campaignId);
+      res.redirect('/advertisers/campaigns');
+    }  
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+
+router.route('/viewcreatives')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+
+    }  
+    else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
+  
 module.exports = router;
