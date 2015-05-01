@@ -19,7 +19,7 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
     domain: 'www.squib.co',
     password: 'password'
   }).then(function(advertiser) {
-    var tags = ['finance', 'tennis', 'cars', 'basketball', 'sports', 'business', 'automotive']
+    var tags = ['willThrow:) callback limbo','Finance', 'Tennis', 'Cars', 'Basketball', 'Sports', 'Business', 'Automotive']
     for(j = 0; j < 2000; j++) {
       var campaignTags = []
       tags.forEach(function(tag, index){
@@ -31,7 +31,7 @@ sequelize.sync({ logging: console.log, force: true}).then(function() {
         title: faker.lorem.sentence(),
         budget: faker.random.number(5000),
         advertiserId: 1,
-        tags: campaignTags.join(', ')
+        tags: campaignTags.join(' ')
       }).then(function(campaign) {
         var geoProperties = {}
         if(campaign.dataValues.id % 3 == 0) geoProperties = {city: faker.address.city(), country: faker.address.country()}
