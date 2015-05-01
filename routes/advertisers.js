@@ -100,7 +100,7 @@ router.route('/edit-campaigns')
     } else {
       res.redirect('advertisers/homepage');
     }
-  })
+  });
 
 router.route('/edit-campaign')
   .post(function(req, res) {
@@ -121,19 +121,19 @@ router.route('/edit-campaign')
     }
   });
 
-router.route('/edit-creatives')
+router.route('/creatives/edit-creatives')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
       console.log('redirecting' + req.body.id);
       res.render('editCreative', {
-              id: req.body.id
+        id: req.body.id
       });
     } else {
       res.redirect('advertisers/homepage');
     }
-  })
+  });
 
-router.route('/edit-creative')
+router.route('/creatives/edit-creative')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
       editCreative(req, function(err, data) {
@@ -141,14 +141,11 @@ router.route('/edit-creative')
           if (err.http_code == 404)
             res.sendStatus(404);
           else
-            res.sendStatus(400).json({
-              status: "Error",
-              message: "Something went wrong!" + err
-            });
-          res.render('creatives');
+            res.render('creatives');
           console.log("Something went wrong with editing");
         } else {
-          res.redirect('viewcreatives');
+          console.log("data: " + data.campaignId);
+           res.redirect('/advertisers/creatives/' + data.campaignId);
         }
       });
     } else {
@@ -190,8 +187,8 @@ router.route('/campaigns')
       viewCampaigns.viewCampaigns(req.user.id).then(function(result) {
         res.render('campaign', {
           campaign: result
-        })
-      })
+        });
+      });
     } else {
       res.redirect('/advertisers/homepage');
     }
@@ -202,7 +199,7 @@ router.route('/formcreatives')
     if (req.isAuthenticated()) {
       res.render('creative', {
         campaignId: req.body.campaignId
-      })
+      });
     } else {
       res.redirect('/advertisers/homepage');
     }
@@ -225,12 +222,24 @@ router.route('/viewcreatives')
       creative.viewCreatives(req.body.campaignId).then(function(result) {
         res.render('viewcreatives', {
           creative: result
-        })
-      })
+        });
+      });
     } else {
       res.redirect('/advertisers/homepage');
     }
   });
-
+router.route('/creatives/:id')
+  .get(function(req, res) {
+    if (req.isAuthenticated()) {
+      console.log("params: " + req.params.id);
+      creative.viewCreatives(req.params.id).then(function(result) {
+        res.render('viewcreatives', {
+          creative: result
+        });
+      });
+    } else {
+      res.redirect('/advertisers/homepage');
+    }
+  });
 
 module.exports = router;
