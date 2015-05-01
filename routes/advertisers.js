@@ -4,7 +4,6 @@ var router = express.Router();
 var passport = require('passport');
 var localStrategy = require('../lib/localStrategy.js');
 var campaign = require('../lib/campaign.js');
-
 var creative = require('../lib/creative.js');
 
 // Passport session setup.
@@ -36,7 +35,6 @@ router.route('/reg')
     successRedirect: '/advertisers/profile',
     failureRedirect: '/advertisers/Homepage'
   }));
-
 
 //when a http get request is sent to advertisers/login
 //the Login.ejs view is rendered
@@ -84,7 +82,6 @@ router.route('/campaigns')
       campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
       console.log(req.user.id);
       res.redirect('/advertisers/profile');
-
     }
     else {
       res.redirect('/advertisers/homepage');
@@ -109,7 +106,6 @@ router.route('/campaigns')
       res.redirect('/advertisers/homepage');
     }
   });
-
 
 //when a http post request is sent to advertisers/formcreatives
 //the view creative is rendered and the campaign's id extracted from the body of the request is sent to the view
@@ -139,7 +135,6 @@ router.route('/creatives')
       res.redirect('/advertisers/homepage');
     }
   });
-
 
 //when http post request is sent to advertisers/viewcreatives
 //viewCreatives function in the creative module is called with the campaign's id extracted from the body
