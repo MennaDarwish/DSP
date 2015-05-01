@@ -91,7 +91,12 @@ router.route('/logout')
     req.logout();
     res.redirect('/advertisers/homepage');
   });
-
+/**
+ * author: Salma Ali
+ * the following two routes are used to edit a creative
+   the first routes redirects to the editing form and the 
+   second performs the actual function of editing
+ */
 router.route('/edit-campaigns')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
@@ -124,7 +129,12 @@ router.route('/edit-campaign')
       res.redirect('advertisers/homepage');
     }
   });
-
+/**
+ * author: Salma Ali
+ * the following two routes are used to edit a creative
+   the first routes redirects to the editing form and the 
+   second performs the actual function of editing
+ */
 router.route('/creatives/edit-creatives')
   .post(function(req, res) {
     if (req.isAuthenticated()) {
@@ -158,8 +168,14 @@ router.route('/creatives/edit-creative')
       res.redirect('advertisers/homepage');
     }
   });
+  /**
+ * author: Salma Ali
+ * route that gets the list of impressions per campaign
+   displaying the image of the creative and the title
+   of the campaign
+ */
 router.route('/impressions')
-  .get(function(req, res) {
+  .post(function(req, res) {
     var creative = [];
     if (req.isAuthenticated()) {
       listImpressions(req, function(err, data) {
@@ -244,6 +260,10 @@ router.route('/viewcreatives')
       res.redirect('/advertisers/homepage');
     }
   });
+  /**
+ * author: Salma Ali
+ * the route displays the creatives after an edit has occurred
+ */
 router.route('/creatives/:id')
   .get(function(req, res) {
     if (req.isAuthenticated()) {

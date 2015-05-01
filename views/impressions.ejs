@@ -22,11 +22,10 @@
         </div>
       </div>
     </nav>
-
     
-    <% impressions.forEach(function (impression){ %>
     <div class = "campaign" >
     <p> Campaign: <%= campaign.title %></p>
+    <% impressions.forEach(function (impression){ %>
     <img src=<%= creative.imageUrl%> height = <%= creative.height%> width = <%= creative.width%>>
     <p> Longitude: <%= impression.longitude%></p>
     <p> Latitude: <%= impression.latitude %></p>
