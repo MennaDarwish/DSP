@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DSP</title>
+   <!--   Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Custom CSS  -->
+    <link rel="stylesheet" href="/css/campaign.css">
+   
+    
+  </head>
+  <body>
+    <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="Logout" class="navbar-brand">Sign Out</a>
+        </div>
+      </div>
+    </nav>
+    
+    <div class = "campaign" >
+    <p> Campaign: <%= campaign.title %></p>
+    <% impressions.forEach(function (impression){ %>
+    <img src=<%= creative.imageUrl%> height = <%= creative.height%> width = <%= creative.width%>>
+    <p> Longitude: <%= impression.longitude%></p>
+    <p> Latitude: <%= impression.latitude %></p>
+    <p> Price: <%= impression.price %></p>
+
+    </div>
+    <% }) %>
+
+ 
+  </body>
+</html>
+

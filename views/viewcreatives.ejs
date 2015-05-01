@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>DSP</title>
+   <!--   Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Custom CSS  -->
+    <link rel="stylesheet" href="/css/campaign.css">
+   
+    
+  </head>
+  <body>
+    <nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="Logout" class="navbar-brand">Sign Out</a>
+        </div>
+      </div>
+    </nav>
+
+    
+    <% creative.forEach(function (creative){ %>
+    <div class = "campaign" >
+      <img src=<%= creative.imageUrl%> height = <%= creative.height%> width = <%=creative.width%>>
+      <p> redirectUrl: <%= creative.redirectUrl %></p>
+      <p> microUSD: <%= creative.microUSD %></p>
+      <div class = "upload">
+     <form method = "post" action ="edit-creatives">
+      <input hidden name = "id" value = <%=creative.id %> >
+      <input hidden name = "campaignId" value = <%=creative.campaignId %> >
+      <input type="submit" name="submit" value="Edit Creative" class="btn"/>
+    </form>
+    </div>
+    </div>
+    <% }) %>
+
+ 
+  </body>
+</html>
+
