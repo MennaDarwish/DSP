@@ -97,7 +97,7 @@ router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
 
-      viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+      campaign.viewCampaigns(req.user.id).then(function(result){
         res.render('profile', {
           campaigns : result,
           user : req.user
@@ -229,7 +229,7 @@ router.route('/impressions')
 router.route('/campaignform')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
-      viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+      campaign.viewCampaigns(req.user.id).then(function(result){
         res.render('campaignform', {
           campaigns : result,
           user : req.user
@@ -278,9 +278,9 @@ router.route('/uploadcampaign')
 router.route('/viewcampaign')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-      viewCampaigns.viewCampaigns(req.user.id).then(function(campaigns){
+      campaign.viewCampaigns(req.user.id).then(function(campaigns){
         var camps = campaigns;
-        viewCampaigns.viewCampaign(req.body.campaignId).then(function(campaign){
+        campaign.viewCampaign(req.body.campaignId).then(function(campaign){
           var camp = campaign;
           creative.viewCreatives(req.body.campaignId).then(function(creatives){
             res.render('campaign', {
@@ -305,7 +305,7 @@ router.route('/viewcampaign')
 router.route('/formcreatives')
   .post(function(req, res) {
     if (req.isAuthenticated()){
-    viewCampaigns.viewCampaigns(req.user.id).then(function(campaigns){
+    campaign.viewCampaigns(req.user.id).then(function(campaigns){
       res.render('creativeform', {
         campaignId : req.body.campaignId,
         campaigns : campaigns,
