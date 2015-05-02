@@ -96,14 +96,13 @@ router.route('/login')
 router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
-
       campaign.viewCampaigns(req.user.id).then(function(result){
-        res.render('profile', {
-          campaigns : result,
-          user : req.user
-        })
-      })
+          res.render('profile', {
+            campaigns : result,
 
+            user : req.user
+          })
+        })
     } else {
       res.redirect('/advertisers/homepage');
     }

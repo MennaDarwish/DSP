@@ -84,14 +84,14 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Portfolio Item
-                    <small>Subheading</small>
+                <h1 class="page-header">
+                    <small></small>
                 </h1>
-                <ol class="breadcrumb">
+<!--                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
                     <li class="active">Portfolio Item</li>
-                </ol>
+                </ol> -->
             </div>
         </div>
         <!-- /.row -->
@@ -160,22 +160,16 @@
             </div>
 
 
-            <% creatives.forEach(function (creative){ %>
-
-            <div class="col-sm-3 col-xs-6">
-                <p> Height: <%= creative.height %></p>
-                <p> Width: <%= creative.width %></p>
-                <p> imageUrl: <%= creative.imageUrl %></p>
-                <p> redirectUrl: <%= creative.redirectUrl %></p>
-                <p> microUSD: <%= creative.microUSD %></p>
-
+                <% creatives.forEach(function (creative){ %>
+                <div class="col-sm-3 col-xs-6">
+                    <p> Height: <%= creative.height %></p>
+                    <p> Width: <%= creative.width %></p>
+                    <p> imageUrl: <%= creative.imageUrl %></p>
+                    <p> redirectUrl: <%= creative.redirectUrl %></p>
+                    <p> microUSD: <%= creative.microUSD %></p>
+                </div>
+                <% }) %>
             </div>
-
-            <% }) %>
-
-
-
-        </div>
         <!-- /.row -->
 
         <hr>
