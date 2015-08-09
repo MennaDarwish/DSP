@@ -54,13 +54,20 @@ passport.deserializeUser(function(obj, done) {
 //dspHomepage is rendered
 router.route('/homepage')
   .get(function(req, res) {
-    res.render('dspHomepage', {
-      title: 'dspHomepage'
-    });
+
+    res.render('homepage', {
+      title : 'dspHomepage'
+    })
   });
 
-//when a post http request is sent to advertisers/reg
-//passport is used to register the advertiser
+router.route('/registration')
+  .get(function(req, res) {
+    res.render('registration', {
+      title : 'dspHomepage'
+    })
+  });
+
+
 router.route('/reg')
   .post(passport.authenticate('local-signup', {
     successRedirect: '/advertisers/profile',
@@ -89,9 +96,13 @@ router.route('/login')
 router.route('/profile')
   .get(function(req, res) {
     if (req.isAuthenticated()) {
-      res.render('buyerProfile', {
-        title: 'buyer Profile'
-      });
+      campaign.viewCampaigns(req.user.id).then(function(result){
+          res.render('profile', {
+            campaigns : result,
+
+            user : req.user
+          })
+        })
     } else {
       res.redirect('/advertisers/homepage');
     }
@@ -214,9 +225,28 @@ router.route('/impressions')
     }
   });
 
-//when a http post request is sent to advertisers/campaign
-//campaign.js module is used ,the router calls uploadCampaign function with the campaign attributes in the request body
-router.route('/campaigns')
+router.route('/campaignform')
+  .get(function(req, res) {
+    if (req.isAuthenticated()) {
+      campaign.viewCampaigns(req.user.id).then(function(result){
+        res.render('campaignform', {
+          campaigns : result,
+          user : req.user
+        })
+      })
+      
+    } else {
+        res.redirect('/advertisers/homepage');
+      }
+  });
+
+
+
+
+
+
+router.route('/uploadcampaign')
+
   .post(function(req, res) {
     if (req.isAuthenticated()){
       campaign.uploadCampaign(req.body.title,req.body.budget,req.body.tags,req.user.id);
@@ -229,21 +259,42 @@ router.route('/campaigns')
     }
   });
 
-//when a http get request is sent to advertisers/campaigns
-//the function view campaign in the campaign.js module is called with the advertiser's ID which responds with a promise
-//that has all the campaigns
-//belonging to this advertiser
-//and then the campaigns are sent to the campaign view
-router.route('/campaigns')
-  .get(function(req, res) {
-    if (req.isAuthenticated()){
-      campaign.viewCampaigns(req.user.id).then(function(result){
 
-        res.render('campaign', {
-          campaign: result
-        });
-      });
-    } else {
+// router.route('/campaigns')
+//   .get(function(req, res) {
+//     if (req.isAuthenticated()){
+//       viewCampaigns.viewCampaigns(req.user.id).then(function(result){
+//         res.render('campaign', {
+//           campaign : result
+//         })
+//       })
+//     }  
+//     else {
+//       res.redirect('/advertisers/homepage');
+//     }
+//   });
+
+router.route('/viewcampaign')
+  .post(function(req, res) {
+    if (req.isAuthenticated()){
+      campaign.viewCampaigns(req.user.id).then(function(campaigns){
+        var camps = campaigns;
+        campaign.viewCampaign(req.body.campaignId).then(function(campaign){
+          var camp = campaign;
+          creative.viewCreatives(req.body.campaignId).then(function(creatives){
+            res.render('campaign', {
+              campaign : camp,
+              campaigns : camps,
+              creatives : creatives,
+              user : req.user
+
+            })
+          })
+        })
+      })
+      
+    }  
+    else {
       res.redirect('/advertisers/homepage');
     }
   });
@@ -252,11 +303,16 @@ router.route('/campaigns')
 //the view creative is rendered and the campaign's id extracted from the body of the request is sent to the view
 router.route('/formcreatives')
   .post(function(req, res) {
-    if (req.isAuthenticated()) {
-      res.render('creative', {
-        campaignId: req.body.campaignId
-      });
-    } else {
+    if (req.isAuthenticated()){
+    campaign.viewCampaigns(req.user.id).then(function(campaigns){
+      res.render('creativeform', {
+        campaignId : req.body.campaignId,
+        campaigns : campaigns,
+        user : req.user
+      })
+    })  
+    }  
+    else {
       res.redirect('/advertisers/homepage');
     }
   });
